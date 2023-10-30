@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PaintChat collaboratif</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./drawing-board/drawing-board.min.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <!-- Some cool basic Navbar -->
+    <nav class="navbar navbar-primary bg-primary">
+        <a class="navbar-brand text-white" href="#">
+            <img src="https://images.vexels.com/media/users/3/129759/isolated/preview/e57821f1317893d1c2d8e184d4f9d595-chat-bubble-icon-by-vexels.png"
+                width="45" height="45" class="d-inline-block align-top" alt="">
+                PaintChat collaboratif
+        </a>
+    </nav>
+    <!-- Messages Container -->
+    <ul class="list-group" id="messageContainer">
+
+    </ul>
+
+    <!-- Drawing Board and Send Button -->
+    <script>
+        //pass options and add custom controls to a board
+var customBoard = new DrawingBoard.Board('custom-board',{
+	background: "#ff7ffe",
+	color: "#ff0",
+	size: 30,
+	controls: [
+		{ Size: { type: "range" } },
+		{ Navigation: { back: false, forward: false } },
+		'DrawingMode'
+	],
+	webStorage: 'local'
+});
+
+//There are multiple ways to add a control to a board after its initialization:
+customBoard.addControl('Download'); //if the DrawingBoard.Control.Download class exists
+
+//or...
+//var downloadControl = new DrawingBoard.Control.Download(customBoard).addToBoard();
+
+//or...
+//var downloadControl = new DrawingBoard.Control.Download(customBoard);
+//customBoard.addControl(downloadControl);
+    </script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="./drawing-board/drawing-board.min.js"></script>
+    <script src="./script.js"></script>
+</body>
+
+</html>

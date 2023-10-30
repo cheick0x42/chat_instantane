@@ -1,0 +1,505 @@
+body {
+	margin: 0;
+	padding: 0;
+	color: #777;
+	font-family: 'Lucida Grande', 'Hiragino Kaku Gothic ProN', Meiryo, 'Malgun Gothic', sans-serif;
+	font-size: 14px;
+}
+a {
+	border: none;
+	color: #ec7ca9;
+	text-decoration: none;
+}
+a:hover {
+	color: #e25c92;
+	text-decoration: underline;
+}
+a.enter {
+	display: inline-block;
+	background-color: #ec7ca9;
+	color: #fff;
+	padding: 10px 20px;
+	margin: 20px;
+	text-decoration: none;
+	border-radius: 2px;
+	font-size: 16px;
+}
+a.enter:hover {
+	background-color: #e25c92;
+}
+a.cant-enter {
+	display: inline-block;
+	background-color: #777;
+	color: #fff;
+	padding: 10px 20px;
+	margin: 20px;
+	text-decoration: none;
+	border-radius: 2px;
+	font-size: 16px;
+}
+div#mask {
+	z-index: 2;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: rgba(255,255,255,0.8);
+	background-image: url(./icon/reichat.svg);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+div#home {
+	background-image: url(canvas);
+	background-position: left top;
+	background-size: cover;
+	background-repeat: no-repeat;
+	text-align: center;
+	background-image: url('images.png');
+}
+div#home > div {
+	background-color: rgba(255,255,255,0.88);
+	padding: 60px 0 30px;
+}
+div#home h1 {
+	font-weight: normal;
+	font-size: 40px;
+	margin: 0 0 30px;
+	color: #555;
+}
+div#home footer {
+	background-color: rgba(255,255,255,0.95);
+	border-top: 1px solid rgba(0,0,0,0.25);
+	font-size: 11px;
+	color: #aaa;
+	margin: 0;
+	padding: 10px 0 40px;
+}
+div#home footer hr {
+	display: inline-block;
+	margin: 10px 0 5px;
+	width: 0;
+	height: 0;
+	border: 2px solid #ccc;
+	border-radius: 2px;
+}
+div#home footer a > img.mark {
+	width: 48px;
+	height: 48px;
+	opacity: 0.5;
+}
+div#home footer a > img.mark:hover {
+	opacity: 1;
+}
+div#toolbar,
+div#paint {
+	position: absolute;
+	bottom: 130px;
+	touch-action: none;
+}
+div#toolbar {
+	top: 0;
+	left: 0;
+	width: 80px;
+	background: #eee;
+	border-right: 1px solid #ddd;
+	box-sizing: border-box;
+	overflow-x: hidden;
+	overflow-y: auto;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+div#toolbar > div.tools {
+	margin: 16px 0 8px;
+}
+div#toolbar > div.tools > button {
+	width: calc(50% - 5px);
+	height: 35px;
+	margin: 3px 0 0 3px;
+	font-size: 10px;
+	padding: 2px;
+	white-space: normal;
+	word-break: break-all;
+	line-height: 13px;
+	text-align: left;
+	background-size: 35px 35px;
+	background-color: transparent;
+	background-position: center center;
+	overflow: hidden;
+}
+div#toolbar > div.tools > button.selected {
+	background-color: #f5cc98;
+}
+div#toolbar > div.size,
+div#toolbar > div.stabilize,
+div#toolbar > div.alpha,
+div#toolbar > div.r,
+div#toolbar > div.g,
+div#toolbar > div.b {
+	position: relative;
+	margin: 8px 4px;
+}
+div#toolbar > div.size > span,
+div#toolbar > div.stabilize > span,
+div#toolbar > div.alpha > span,
+div#toolbar > div.r > span,
+div#toolbar > div.g > span,
+div#toolbar > div.b > span {
+	position: absolute;
+	top: 50%;
+	margin-top: -4px;
+	left: 4px;
+	z-index: 1;
+	font-size: 10px;
+	line-height: 10px;
+	pointer-events: none;
+	color: #000;
+}
+div#toolbar > div.size > div.flagrate-slider {
+	height: 20px;
+	overflow: hidden;
+}
+div#toolbar > div.stabilize > div.flagrate-slider,
+div#toolbar > div.alpha > div.flagrate-slider,
+div#toolbar > div.r > div.flagrate-slider,
+div#toolbar > div.g > div.flagrate-slider,
+div#toolbar > div.b > div.flagrate-slider {
+	height: 14px;
+	overflow: hidden;
+}
+div#toolbar > div.size > div.flagrate-slider > div,
+div#toolbar > div.stabilize > div.flagrate-slider > div,
+div#toolbar > div.alpha > div.flagrate-slider > div,
+div#toolbar > div.r > div.flagrate-slider > div,
+div#toolbar > div.g > div.flagrate-slider > div,
+div#toolbar > div.b > div.flagrate-slider > div {
+	background-color: #c0c0c0;
+}
+div#toolbar > div.size > div.flagrate-slider > div::after,
+div#toolbar > div.stabilize > div.flagrate-slider > div::after,
+div#toolbar > div.alpha > div.flagrate-slider > div::after,
+div#toolbar > div.r > div.flagrate-slider > div::after,
+div#toolbar > div.g > div.flagrate-slider > div::after,
+div#toolbar > div.b > div.flagrate-slider > div::after {
+	width: 1px;
+	margin-right: -1px;
+	background-color: #888;
+}
+div#toolbar > div.r > div.flagrate-slider > div {
+	background-color: rgba(175, 105, 105, 0.7);
+}
+div#toolbar > div.g > div.flagrate-slider > div {
+	background-color: rgba(91, 169, 39, 0.7);
+}
+div#toolbar > div.b > div.flagrate-slider > div {
+	background-color: rgba(89, 89, 178, 0.7);
+}
+div#toolbar > div.r > div.flagrate-slider > div::after {
+	background-color: #af6969;
+}
+div#toolbar > div.g > div.flagrate-slider > div::after {
+	background-color: #5ba927;
+}
+div#toolbar > div.b > div.flagrate-slider > div::after {
+	background-color: #5959b2;
+}
+div#toolbar > button {
+	margin: 8px 4px;
+	padding: 0;
+	display: block;
+	width: calc(100% - 8px);
+	height: 20px;
+	border: 1px solid #c0c0c0;
+	box-shadow: inset 0 0 0 1px #fff;
+}
+div#toolbar > div.swatch {
+	margin: 8px 4px;
+	line-height: 0;
+}
+div#toolbar > div.swatch > button {
+	padding: 0;
+	width: 14px;
+	height: 14px;
+	line-height: 0;
+}
+div#toolbar > div.layer-buttons {
+	margin: 8px 4px 0;
+}
+div#toolbar > div.layer-buttons > button {
+	display: block;
+	width: 100%;
+	height: 25px;
+	margin: 0 0 3px 0;
+	font-size: 10px;
+	padding: 2px;
+	white-space: normal;
+	word-break: break-all;
+	line-height: 13px;
+	text-align: left;
+	text-shadow: -1px -1px 1px #fff, 1px 1px 1px #fff, -1px 1px 1px #fff, 1px -1px 1px #fff;
+	background-color: #ddd;
+	background-position: center center;
+	background-size: cover;
+	overflow: hidden;
+}
+div#toolbar > div.layer-buttons > button.selected {
+	background-color: #fff;
+	color: #e7962d;
+	font-weight: bold;
+}
+div#paint {
+	z-index: 1;
+	overflow: hidden;
+	background: #eee;
+	top: 0;
+	right: 0;
+	left: 80px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+div#paint > div.ui-canvas {
+	position: absolute;
+	overflow: hidden;
+	background: #ddd;
+	top: 0;
+	right: 20px;
+	bottom: 20px;
+	left: 0;
+}
+div#paint > div.ui-canvas > canvas {
+	position: absolute;
+	top: 0;
+	left: 0;
+	transform-origin: 0 0 0;
+	transition-property: opacity;
+	transition-duration: 0.5s;
+}
+div#paint > div.ui-canvas > canvas#canvas-overlay {
+	z-index: 999;
+	cursor: url(pointer.cur), default;
+}
+div#paint > div.ui-canvas > canvas#canvas-overlay.panning {
+	cursor: url(grasping-hand-open.cur), default;
+}
+div#paint > div.ui-canvas > canvas#canvas-overlay.panning:active {
+	cursor: url(grasping-hand-closed.cur), default;
+}
+div#paint > div.ui-canvas > canvas#canvas-overlay.picking {
+	cursor: url(picker.cur), default;
+}
+div#paint > div.ui-button {
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	box-shadow: inset 0 0 0 1px #aaa,
+	            inset 0 0 0 2px #fff;
+	background: #f7f7f7;
+	color: #999;
+	text-align: center;
+	cursor: pointer;
+}
+div#paint > div.ui-button:hover {
+	background: #fff;
+	color: #2b2b2b;
+}
+div#paint > div.ui-button#zoom-in {
+	bottom: 0;
+	left: 0;
+}
+div#paint > div.ui-button#zoom-in::after {
+	content: '\ff0b';
+}
+div#paint > div.ui-button#zoom-out {
+	right: 0;
+	bottom: 0;
+}
+div#paint > div.ui-button#zoom-out::after {
+	content: '\ff0d';
+}
+div#paint > div.ui-button#fullscreen {
+	top: 0;
+	right: 0;
+}
+div#paint > div.ui-button#fullscreen::after {
+	content: '\0066';
+}
+div#paint > div.ui-scroll {
+	position: absolute;
+	bottom: 0;
+	box-shadow: inset 0 0 0 1px #ccc;
+	background: #eee;
+	cursor: move;
+	overflow: hidden;
+}
+div#paint > div.ui-scroll > div {
+	position: absolute;
+	box-shadow: inset 0 0 0 1px #aaa,
+	            inset 0 0 0 2px #fff,
+	            0 0 0 1px #ccc;
+	background: #f7f7f7;
+}
+div#paint > div.ui-scroll#scroll-x {
+	right: 20px;
+	left: 20px;
+	height: 20px;
+}
+div#paint > div.ui-scroll#scroll-x > div {
+	top: 0;
+	bottom: 0;
+	left: 10px;
+	width: 100px;
+}
+div#paint > div.ui-scroll#scroll-y {
+	top: 20px;
+	right: 0;
+	bottom: 20px;
+	width: 20px;
+}
+div#paint > div.ui-scroll#scroll-y > div {
+	top: 10px;
+	right: 0;
+	left: 0;
+	height: 100px;
+}
+@media screen and (max-height: 730px) {
+	div#toolbar {
+		width: 120px;
+	}
+	div#toolbar > div.tools > button {
+		width: calc(100% / 3 - 5px);
+	}
+	div#paint {
+		left: 120px;
+	}
+}
+@media screen and (max-height: 635px) {
+	div#toolbar {
+		width: 160px;
+	}
+	div#toolbar > div.tools > button {
+		width: calc(100% / 4 - 5px);
+	}
+	div#paint {
+		left: 160px;
+	}
+	div#toolbar > div.layer-buttons > button {
+		display: inline-block;
+		width: calc(100% / 2 - 4px);
+		margin-right: 3px;
+	}
+}
+div#chat {
+	z-index: 1;
+	position: absolute;
+	overflow: hidden;
+	background: #ddd;
+	height: 130px;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+div#chat > div {
+	position: absolute;
+	background: #eee;
+	-webkit-user-select: text;
+	-moz-user-select: text;
+	-ms-user-select: text;
+	user-select: text;
+	box-sizing: border-box;
+	font-size: 13px;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+div#chat > div#log {
+	top: 5px;
+	right: 145px;
+	left: 0;
+	bottom: 30px;
+	padding: 5px;
+}
+div#chat > div#log > div > span.date {
+	color: #999;
+	margin-right: 10px;
+}
+div#chat > div#log > div > span.name {
+	color: #555;
+	margin-right: 10px;
+}
+div#chat > div#log > div.reichat > span.name {
+	color: #ec7ca9;
+}
+div#chat > div#log > div > span.name::after {
+	content: '>';
+	margin-left: 5px;
+	color: #bbb;
+	font-weight: bold;
+	font-family: sans-serif;
+}
+div#chat > div#log > div > span.message {
+	color: #555;
+	margin-right: 10px;
+}
+div#chat > div#log > div.reichat > span.message {
+	color: #aaa;
+}
+div#chat > div#clients {
+	top: 5px;
+	right: 0;
+	bottom: 30px;
+	width: 143px;
+	padding: 5px;
+}
+div#chat > div#clients > div::before {
+	content: '\25A0 ';
+}
+div#chat > div#commands {
+	right: 0;
+	bottom: 0;
+	left: 0;
+	height: 28px;
+	overflow: hidden;
+}
+div#chat > div#commands > input {
+	width: 100%;
+	height: 100%;
+	border: none;
+	font-size: 12px;
+	padding-right: 200px;
+	background-color: #fafafa;
+	color: #aaa;
+}
+div#chat > div#commands > input:focus {
+	background-color: #fff;
+	color: #2b2b2b;
+}
+div#chat > div#commands > button {
+	position: absolute;
+	top: 2px;
+	height: 24px;
+}
+div#chat > div#commands > button.name {
+	left: 2px;
+}
+div#chat > div#commands > button.name > span::after {
+	content: '>';
+	color: #aaa;
+	margin-left: 5px;
+	font-weight: bold;
+	font-family: sans-serif;
+}
+div#chat > div#commands > button.send {
+	right: 145px;
+}
+div#chat > div#commands > button.exit {
+	right: 2px;
+	width: 141px;
+}

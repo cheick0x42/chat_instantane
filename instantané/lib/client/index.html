@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Language" content="en, ja">
+
+	<title>Tp Programmation repartie</title>
+
+	<meta name="robots" content="follow,noindex,noarchive">
+
+	<script src="//flagrate.org/flagrate.min.js"></script>
+
+	<link href="style.css" rel="stylesheet">
+	<script type="text/javascript" src="l10n.js"></script>
+	<link rel="shortcut icon" type="image/png" href="favicon.png">
+
+	<script>
+		window.addEventListener('DOMContentLoaded', function () {
+
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', '/config');
+			xhr.onreadystatechange = function () {
+
+				if (xhr.readyState === 4) {
+					var config = JSON.parse(xhr.responseText);
+
+					document.title = config.title + ' - reichat';
+					flagrate.Element.extend(document.getElementById('title')).updateText(config.title);
+					//flagrate.Element.extend(document.getElementById('client-version')).updateText(config.version.client);
+					//flagrate.Element.extend(document.getElementById('server-version')).updateText(config.version.server);
+
+					localStorage.setItem('enter', 'yes');
+				}
+			};
+			xhr.send();
+		});
+	</script>
+</head>
+<body>
+	<div id="home">
+		<div>
+			<h1 id="title">PaintChat</h1>
+			<br><br><br>
+			<p lang="en">
+				Veuillez choisir un <strong>PaintChat</strong>
+			</p>
+
+
+			<!--[if !IE]><!-->
+				<br>
+			<a class="enter" href="http://172.20.10.11:10133/reichat.html">
+				<span lang="en">PaintChat instantané</span>
+
+			</a>
+			<a class="enter" href="http://172.20.10.11:8000">
+				<span lang="en">PaintChat collaboratif</span>
+			</a> <br>
+			<a class="enter" href="http://172.20.10.10:8000">
+				<span lang="en">Paint vidéo</span>
+
+			</a> 
+			<a class="enter" href="http://172.20.10.10:8000/file">
+				<span lang="en">Paint fichier</span>
+			</a>
+			<!--<![endif]-->
+			<!--[if lte IE 10]>
+			<a class="cant-enter">
+				<span lang="en">Your browser is not supported.</span>
+				<span lang="ja">お使いのブラウザはサポートされていません</span>
+			</a>
+			<![endif]-->
+			<br><br><br><br><br><br><br> <br><br>
+			<p lang="en">
+				<strong> Tout droit reservé || esatic </strong><br>
+				Licence MIT
+			</p>
+
+		</div>
+
+	</div>
+</body>
+</html>

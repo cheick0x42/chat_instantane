@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Language" content="en, ja, ko">
+
+	<title>PaintChat</title>
+
+	<meta name="robots" content="follow,noindex,noarchive">
+
+	<link href="//flagrate.org/flagrate.min.css" rel="stylesheet">
+	<script src="//flagrate.org/flagrate.min.js"></script>
+
+	<script src="./socket.io/socket.io.js"></script>
+	<script src="//code.jquery.com/pep/0.3.0/pep.js"></script>
+
+	<link href="style.css" rel="stylesheet">
+	<script src="l10n.js"></script>
+	<script src="brush.js"></script>
+	<script src="reichat.js"></script>
+
+	<script>
+
+		(function ( doc ) {
+			// Use JavaScript script mode
+			"use strict";
+
+			/*global Element */
+
+			var pollute = true,
+				api,
+				vendor,
+				apis = {
+					// http://dvcs.w3.org/hg/fullscreen/raw-file/tip/Overview.html
+					w3: {
+						enabled: "fullscreenEnabled",
+						element: "fullscreenElement",
+						request: "requestFullscreen",
+						exit:    "exitFullscreen",
+						events: {
+							change: "fullscreenchange",
+							error:  "fullscreenerror"
+						}
+					},
+					webkit: {
+						enabled: "webkitFullscreenEnabled",
+						element: "webkitFullscreenElement",
+						request: "webkitRequestFullscreen",
+						exit:    "webkitExitFullscreen",
+						events: {
+							change: "webkitfullscreenchange",
+							error:  "webkitfullscreenerror"
+						}
+					},
+					moz: {
+						enabled: "mozFullScreenEnabled",
+						element: "mozFullScreenElement",
+						request: "mozRequestFullScreen",
+						exit:    "mozCancelFullScreen",
+						events: {
+							change: "mozfullscreenchange",
+							error:  "mozfullscreenerror"
+						}
+					},
+					ms: {
+						enabled: "msFullscreenEnabled",
+						element: "msFullscreenElement",
+						request: "msRequestFullscreen",
+						exit:    "msExitFullscreen",
+						events: {
+							change: "MSFullscreenChange",
+							error:  "MSFullscreenError"
+						}
+					}
+				},
+				w3 = apis.w3;
+
+			// Loop through each vendor's specific API
+			for (vendor in apis) {
+				// Check if document has the "enabled" property
+				if (apis[vendor].enabled in doc) {
+					// It seems this browser support the fullscreen API
+					api = apis[vendor];
+					break;
+				}
+			}
+
+			function dispatch( type, target ) {
+				var event = doc.createEvent( "Event" );
+
+				event.initEvent( type, true, false );
+				target.dispatchEvent( event );
+			} // end of dispatch()
+
+			function handleChange( e ) {
+				// Recopy the enabled and element values
+				doc[w3.enabled] = doc[api.enabled];
+				doc[w3.element] = doc[api.element];
+
+				dispatch( w3.events.change, e.target );
+			} // end of handleChange()
+
+			function handleError( e ) {
+				dispatch( w3.events.error, e.target );
+			} // end of handleError()
+
+			// Pollute only if the API doesn't already exists
+			if (pollute && !(w3.enabled in doc) && api) {
+				// Add listeners for fullscreen events
+				doc.addEventListener( api.events.change, handleChange, false );
+				doc.addEventListener( api.events.error,  handleError,  false );
+
+				// Copy the default value
+				doc[w3.enabled] = doc[api.enabled];
+				doc[w3.element] = doc[api.element];
+
+				// Match the reference for exitFullscreen
+				doc[w3.exit] = doc[api.exit];
+
+				// Add the request method to the Element's prototype
+				Element.prototype[w3.request] = function () {
+					return this[api.request].apply( this, arguments );
+				};
+			}
+
+			// Return the API found (or undefined if the Fullscreen API is unavailable)
+			return api;
+
+		}( document ));
+	</script>
+</head>
+<body>
+	<div id="mask"></div>
+	<div id="toolbar"></div>
+	<div id="paint">
+		<div class="ui-canvas" id="canvas-container">
+			<canvas id="canvas-overlay"></canvas>
+		</div>
+		<div class="ui-button" id="zoom-in"></div>
+		<div class="ui-button" id="zoom-out"></div>
+		<div class="ui-button" id="fullscreen"></div>
+		<div class="ui-scroll" id="scroll-x"><div id="scroll-x-bar"></div></div>
+		<div class="ui-scroll" id="scroll-y"><div id="scroll-y-bar"></div></div>
+	</div>
+	<div id="chat">
+		<div id="log"></div>
+		<div id="clients"></div>
+		<div id="commands"></div>
+	</div>
+</body>
+</html>

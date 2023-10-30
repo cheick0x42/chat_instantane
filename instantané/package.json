@@ -1,0 +1,42 @@
+{
+  "name": "reichat",
+  "version": "0.0.35",
+  "description": "A lovely paint chat application like a PaintChatApp built with Node.",
+  "scripts": {
+    "start": "./bin/reichat.js",
+    "test": "gulp test",
+    "watch": "gulp watch"
+  },
+  "bin": {
+    "reichat": "./bin/reichat.js"
+  },
+  "homepage": "https://github.com/kanreisa/reichat",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kanreisa/reichat.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kanreisa/reichat/issues"
+  },
+  "keywords": [
+    "reichat",
+    "paintchat",
+    "chat",
+    "server"
+  ],
+  "author": "Yuki KAN <re@pixely.jp> (https://github.com/kanreisa)",
+  "contributors": [
+    "MugeSo (http://muge.so/)",
+    "furugomu"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "opts": "^1.2.2",
+    "reichat-server": "^1.0.5"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-mocha": "^2.0.0",
+    "should": "^5.0.1"
+  }
+}

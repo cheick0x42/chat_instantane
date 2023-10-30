@@ -1,0 +1,41 @@
+{
+  "name": "reichat",
+  "repository": "https://github.com/kanreisa/reichat",
+  "logo": "https://yabumi.cc/14b08e54b51e2abe7c7a55c7.svg",
+  "env": {
+    "TITLE": {
+      "description": "Title",
+      "value": "My PaintChat"
+    },
+    "CANVAS_WIDTH": {
+      "description": "Canvas Width",
+      "value": "1280"
+    },
+    "CANVAS_HEIGHT": {
+      "description": "Canvas Height",
+      "value": "720"
+    },
+    "REDIS_HOST": {
+      "description": "Redis Host (optional)",
+      "value": "",
+      "required": false
+    },
+    "REDIS_PORT": {
+      "description": "Redis Port (optional)",
+      "value": "6379",
+      "required": false
+    },
+    "REDIS_PASSWORD": {
+      "description": "Redis Password (optional)",
+      "value": "",
+      "required": false
+    },
+    "REDIS_KEY_PREFIX": {
+      "description": "Redis Key Prefix (optional)",
+      "value": "",
+      "required": false
+    },
+    "FORWARDED_HEADER": "XFF"
+  },
+  "success_url": "/"
+}
